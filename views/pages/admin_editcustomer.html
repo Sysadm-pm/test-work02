@@ -1,0 +1,16 @@
+<h3>Edit page</h3><br/>
+<form method="post" action="">
+    <input type="hidden" name="id_customer" value="<?=$data['Customer']['id_customer']?>"/>
+    <div class="form-group">
+        <label for="alias">name_customer</label>
+        <input type="text" id="name_customer" name="name_customer" value="<?=$data['Customer']['name_customer']?>" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="title">company</label>
+        <input type="text" id="company" name="company" value="<?=$data['Customer']['company']?>" class="form-control"/>
+    </div>
+
+    <input type="submit" class="btn btn-success" />
+</form>
+
+<br/>

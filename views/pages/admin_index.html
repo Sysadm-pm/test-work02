@@ -1,0 +1,93 @@
+<div class="text-center">
+  <h2 class="text-warning"><b>Test02</b></h2>
+</div>
+<hr>
+<div class="col-md-4">
+  <div class="text-center">
+    <h3><b>Contracts</b></h3>
+  </div>
+
+  <table class="table table-hover table-striped" style="">
+      <thead>
+      <tr>
+          <td><b>NAME</b></td>
+          <td align="right"> ACTION </td>
+      </tr>
+      </thead>
+      <?php foreach($data['contracts'] as $contract) { ?>
+      <tbody>
+          <tr>
+              <td><b><?=$contract['number'] ?></b></td>
+              <td align="right">
+                  <a href="/admin/pages/editContract/<?=$contract['id_contract']?>"><button class="btn btn-sm btn-primary">edit</button></a>
+                  <a href="/admin/pages/deleteContract/<?=$contract['id_contract']?>" onclick="return confirmDelete();"><button class="btn btn-sm btn-warning">delete</button></a>
+              </td>
+          </tr>
+      </tbody>
+  <?php } ?>
+  </table>
+  <br/>
+  <div>
+      <a href="/admin/pages/addContract/"><button class="btn btn-sm btn-success">New Contract</button></a>
+  </div>
+</div>
+
+<div class="col-md-4">
+  <div class="text-center">
+    <h3><b>Customers</b></h3>
+  </div>
+
+  <table class="table table-hover table-striped" style="">
+      <thead>
+      <tr>
+          <td><b>NAME</b></td>
+          <td align="right"> ACTION </td>
+      </tr>
+      </thead>
+      <?php foreach($data['customers'] as $customer) { ?>
+      <tbody>
+          <tr>
+              <td><b><?=$customer['name_customer'] ?></b></td>
+              <td align="right">
+                  <a href="/admin/pages/editCustomer/<?=$customer['id_customer']?>"><button class="btn btn-sm btn-primary">edit</button></a>
+                  <a href="/admin/pages/deleteCustomer/<?=$customer['id_customer']?>" onclick="return confirmDelete();"><button class="btn btn-sm btn-warning">delete</button></a>
+              </td>
+          </tr>
+      </tbody>
+  <?php } ?>
+  </table>
+  <br/>
+  <div>
+      <a href="/admin/pages/addCustomer/"><button class="btn btn-sm btn-success">New customer</button></a>
+  </div>
+</div>
+
+<div class="col-md-4">
+  <div class="text-center">
+    <h3><b>Services</b></h3>
+  </div>
+
+  <table class="table table-hover table-striped" style="">
+      <thead>
+      <tr>
+          <td><b>NAME</b></td>
+          <td align="right"> ACTION </td>
+      </tr>
+      </thead>
+      <?php foreach($data['services'] as $service) { ?>
+      <tbody>
+          <tr>
+              <td><b><?=$service['title_service'] ?></b></td>
+              <td align="right">
+                  <a href="/admin/pages/editService/<?=$service['id_service']?>"><button class="btn btn-sm btn-primary">edit</button></a>
+                  <a href="/admin/pages/deleteService/<?=$service['id_service']?>" onclick="return confirmDelete();"><button class="btn btn-sm btn-warning">delete</button></a>
+              </td>
+          </tr>
+      </tbody>
+  <?php } ?>
+  </table>
+  <br/>
+  <div>
+      <a href="/admin/pages/addService"><button class="btn btn-sm btn-success">New service</button></a>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+body {
+  padding-top: 5rem;
+}
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: match-parent;
+}
+.formContact{
+  width: 400px;
+  max-width: 400px;
+}
+.alert .alert-primary{
+  width: 400px;
+  max-width: 400px;
+}
