@@ -1,8 +1,23 @@
 <!--This is the pages/index.html.-->
+<div class="row">
 
-<?php foreach($data['pages'] as $page_data) { ?>
+
+<div class="col-md-4"></div>
+<div class="col-md-4">
+  <form class="" action="" method="post">
+    <input type="text" name="number" value="" class="form-control" /><br/>
+    <button type="submit" name="button" class="btn btn-warning btn-group">Search</button>
+  </form>
+</div>
+<div class="col-md-4"></div>
+</div>
+<br/>
+<? if ($data['data']){ foreach($data['data']['0'] as $key=>$datab){echo $key .' => '.$datab.'<br>'; }} ?>
+<?print_r($data['data']['contracts']);?>
+<?php foreach($data['contracts'] as $contract) { ?>
 
     <div>
-        <a href="/pages/view/<?=$page_data['alias']?>"><?=$page_data['title']?></a>
+
+        <a href="/pages/view/<?=$page_data['alias']?>"><?=$contract['number']?></a>
     </div>
 <?php } ?>

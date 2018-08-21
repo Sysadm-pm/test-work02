@@ -29,12 +29,15 @@ class Page extends Model
         return $this->db->query($sql);
     }
 
-    public function getByAlias($alias)
+    public function getAllInfo($id_contract)
     {
-        $alias = $this->db->escape($alias);
-        $sql = "SELECT * FROM pages WHERE alias = '{$alias}' LIMIT 1";
-        $result = $this->db->query($sql);
-        return isset($result[0]) ? $result[0] : null;
+        $alias = $this->db->escape($id_contract);
+        $sql = "select obj_contracts.id_contract,obj_contracts.id_customer,number,date_sign,staff_number,obj_customers.id_customer,name_customer,company from obj_contracts INNER JOIN obj_customers , obj_services where obj_customers.id_customer = obj_contracts.id_customer and obj_services.id_contract = obj_contracts.id_contract and obj_contracts.id_contract = ".$id_contract;
+        $sql2 = "select obj_services.id_service,obj_services.title_service,obj_services.status from obj_contracts INNER JOIN obj_customers , obj_services where obj_customers.id_customer = obj_contracts.id_customer and obj_services.id_contract = obj_contracts.id_contract and obj_contracts.id_contract = ".$id_contract;
+        $object = $this->db->query($sql);
+        $element = $this->db->query($sql2);
+        $object['services'] = $element;
+        return $object;
     }
     public function getById($id)
     {

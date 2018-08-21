@@ -10,7 +10,8 @@
   <table class="table table-hover table-striped" style="">
       <thead>
       <tr>
-          <td><b>NAME</b></td>
+          <td><b>number</b></td>
+          <td><b>id_contract</b></td>
           <td align="right"> ACTION </td>
       </tr>
       </thead>
@@ -18,6 +19,7 @@
       <tbody>
           <tr>
               <td><b><?=$contract['number'] ?></b></td>
+                <td><b><?=$contract['id_contract'] ?></b></td>
               <td align="right">
                   <a href="/admin/pages/editContract/<?=$contract['id_contract']?>"><button class="btn btn-sm btn-primary">edit</button></a>
                   <a href="/admin/pages/deleteContract/<?=$contract['id_contract']?>" onclick="return confirmDelete();"><button class="btn btn-sm btn-warning">delete</button></a>
@@ -40,7 +42,8 @@
   <table class="table table-hover table-striped" style="">
       <thead>
       <tr>
-          <td><b>NAME</b></td>
+          <td><b>name_customer</b></td>
+          <td><b>id_customer</b></td>
           <td align="right"> ACTION </td>
       </tr>
       </thead>
@@ -48,6 +51,7 @@
       <tbody>
           <tr>
               <td><b><?=$customer['name_customer'] ?></b></td>
+              <td><b><?=$customer['id_customer'] ?></b></td>
               <td align="right">
                   <a href="/admin/pages/editCustomer/<?=$customer['id_customer']?>"><button class="btn btn-sm btn-primary">edit</button></a>
                   <a href="/admin/pages/deleteCustomer/<?=$customer['id_customer']?>" onclick="return confirmDelete();"><button class="btn btn-sm btn-warning">delete</button></a>
@@ -70,7 +74,8 @@
   <table class="table table-hover table-striped" style="">
       <thead>
       <tr>
-          <td><b>NAME</b></td>
+          <td><b>title_service</b></td>
+          <td><b>id_service</b></td>
           <td align="right"> ACTION </td>
       </tr>
       </thead>
@@ -78,6 +83,7 @@
       <tbody>
           <tr>
               <td><b><?=$service['title_service'] ?></b></td>
+              <td><b><?=$service['id_service'] ?></b></td>
               <td align="right">
                   <a href="/admin/pages/editService/<?=$service['id_service']?>"><button class="btn btn-sm btn-primary">edit</button></a>
                   <a href="/admin/pages/deleteService/<?=$service['id_service']?>" onclick="return confirmDelete();"><button class="btn btn-sm btn-warning">delete</button></a>

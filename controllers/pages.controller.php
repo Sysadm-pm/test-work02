@@ -14,6 +14,9 @@ class PagesController extends Controller
         $this->data['contracts'] = $this->model->getListContracts();
         $this->data['customers'] = $this->model->getListCustomers();
         $this->data['services'] = $this->model->getListServices();
+        if ($_POST){
+            $this->data['data'] =$this->model->getAllInfo($_POST['number']);
+        }
     }
 
     public function view()
