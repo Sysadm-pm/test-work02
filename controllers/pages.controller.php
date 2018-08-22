@@ -15,8 +15,18 @@ class PagesController extends Controller
         $this->data['customers'] = $this->model->getListCustomers();
         $this->data['services'] = $this->model->getListServices();
         if ($_POST){
-            $this->data['data'] =$this->model->getAllInfo($_POST['number']);
+          $_POST['number'] = (int)$_POST['number'];
+          var_dump($_POST);
+
+            if((int)$_POST['number'])$this->data['data'] =$this->model->getAllInfo($_POST['number']);
         }
+        if ($this->params[0] == 'search')
+          {
+            echo json_encode($_POST);
+            //var_dump($_POST);
+            exit;
+          }
+
     }
 
     public function view()
@@ -31,7 +41,6 @@ class PagesController extends Controller
     }
     public function admin_index()
     {
-        $this->data['pages'] = $this->model->getList();
         $this->data['contracts'] = $this->model->getListContracts();
         $this->data['customers'] = $this->model->getListCustomers();
         $this->data['services'] = $this->model->getListServices();

@@ -1,15 +1,6 @@
 <?php
 class Page extends Model
 {
-    public function getList($only_published = false)
-    {
-        $sql = "SELECT * FROM pages WHERE 1";
-        if($only_published)
-        {
-            $sql .=" AND is_published = 1";
-        }
-        return $this->db->query($sql);
-    }
     public function getListContracts($only_published = false)
     {
         $sql = "SELECT * FROM obj_contracts WHERE 1";
@@ -32,19 +23,17 @@ class Page extends Model
     public function getAllInfo($id_contract)
     {
         $alias = $this->db->escape($id_contract);
-        $sql = "select obj_contracts.id_contract,obj_contracts.id_customer,number,date_sign,staff_number,obj_customers.id_customer,name_customer,company from obj_contracts INNER JOIN obj_customers , obj_services where obj_customers.id_customer = obj_contracts.id_customer and obj_services.id_contract = obj_contracts.id_contract and obj_contracts.id_contract = ".$id_contract;
-        $sql2 = "select obj_services.id_service,obj_services.title_service,obj_services.status from obj_contracts INNER JOIN obj_customers , obj_services where obj_customers.id_customer = obj_contracts.id_customer and obj_services.id_contract = obj_contracts.id_contract and obj_contracts.id_contract = ".$id_contract;
+        $sql = "select * from obj_contracts,obj_customers where obj_customers.id_customer = obj_contracts.id_customer and obj_contracts.id_contract = ".$id_contract;
         $object = $this->db->query($sql);
-        $element = $this->db->query($sql2);
-        $object['services'] = $element;
+        foreach ($object as $key=>$value) {
+          // code...
+          $sql2 = "select id_service,obj_services.id_contract,title_service,status from obj_services ,obj_contracts where obj_services.id_contract = obj_contracts.id_contract and obj_services.id_contract = ".$value['id_contract'];
+          $object[$key]['services'] = $this->db->query($sql2);
+        }
+
+
+        //$object['services'] = $element;
         return $object;
-    }
-    public function getById($id)
-    {
-        $id = (int)$id;
-        $sql = "SELECT * FROM pages WHERE id = '{$id}' LIMIT 1";
-        $result = $this->db->query($sql);
-        return isset($result[0]) ? $result[0] : null;
     }
     public function getContract($id)
     {
@@ -68,41 +57,6 @@ class Page extends Model
         return isset($result[0]) ? $result[0] : null;
     }
 
-
-    public function save($data, $id = null)
-    {
-        if(!isset($data['alias']) || !isset($data['title']) || !isset($data['content']) )
-        {
-            return false;
-        }
-        $id = (int)$id;
-        $alias = $this->db->escape($data['alias']);
-        $title = $this->db->escape($data['title']);
-        $content = $this->db->escape($data['content']);
-        $is_published = isset($data['is_published']) ? 1 : 0;
-
-        if(!$id)
-        {
-            $sql = "
-            INSERT INTO pages SET
-            alias = '{$alias}',
-            title = '{$title}',
-            content = '{$content}',
-            is_published = '{$is_published}'
-            ";
-        }else
-        {
-            $sql = "
-                        UPDATE pages SET
-                        alias = '{$alias}',
-                        title = '{$title}',
-                        content = '{$content}',
-                        is_published = '{$is_published}'
-                        WHERE id = {$id}
-                        ";
-        }
-        return $this->db->query($sql);
-    }
     public function saveCustomer($data, $id_customer = null)
     {
         if(!isset($data['name_customer']) || !isset($data['company']) )
@@ -194,13 +148,6 @@ class Page extends Model
                         WHERE id_service = {$id_service}
                         ";
         }
-        return $this->db->query($sql);
-    }
-
-    public function delete($id)
-    {
-        $id = (int)$id;
-        $sql = "DELETE FROM pages WHERE id = {$id}";
         return $this->db->query($sql);
     }
     public function deleteContract($id)

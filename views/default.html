@@ -121,6 +121,51 @@
 <script src="/js/scripts/lux.js"></script>
 <script src="/js/admin.js"></script>
 
+
+<script type="text/javascript">
+window.onload = function(){
+      document.getElementById('input').onkeyup = function(){
+          // this.value = this.value.replace(/[^\d]/g,'');
+
+            foo = this.value;
+            if (foo.match(/[^\d]/g)) {
+                //Check if phone is numeric
+                console.log('qwe');
+                //alert('hello '+this.value);
+                $("label#input_error").show(); //Show error
+                $("input#input").focus(); //Focus on field
+                return false;
+            }else{
+              $("label#input_error").hide();
+            }
+      };
+};
+
+</script>
+<script>
+function ajax_send(){
+        // click on button submit
+        $("#submit").on('click', function(){
+            // send ajax
+            $.ajax({
+                url: '/pages/index/search', // url where to submit the request
+                type : "POST", // type of action POST || GET
+                dataType : 'json', // data type
+                data : $("#form").serialize(), // post data || get data
+                success : function(result) {
+                    // you can see the result from the console
+                    // tab of the developer tools
+                    console.log(result);
+                },
+                error: function(xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            })
+        });
+    };
+
+</script>
+
 <script type="text/javascript">
 </script>
 
