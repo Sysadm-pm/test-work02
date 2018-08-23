@@ -20,7 +20,7 @@ class Page extends Model
         return $this->db->query($sql);
     }
 
-    public function getAllInfo($id_contract)
+    public function getAllInfo($id_contract,$status = null)
     {
         $alias = $this->db->escape($id_contract);
         $sql = "select * from obj_contracts,obj_customers where obj_customers.id_customer = obj_contracts.id_customer and obj_contracts.id_contract = ".$id_contract;
@@ -28,6 +28,9 @@ class Page extends Model
         foreach ($object as $key=>$value) {
           // code...
           $sql2 = "select id_service,obj_services.id_contract,title_service,status from obj_services ,obj_contracts where obj_services.id_contract = obj_contracts.id_contract and obj_services.id_contract = ".$value['id_contract'];
+          if($status){
+            $sql2 .=  " and obj_services.status in ({$status})";
+          }
           $object[$key]['services'] = $this->db->query($sql2);
         }
 

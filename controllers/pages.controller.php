@@ -16,13 +16,26 @@ class PagesController extends Controller
         $this->data['services'] = $this->model->getListServices();
         if ($_POST){
           $_POST['number'] = (int)$_POST['number'];
-          var_dump($_POST);
+          //var_dump($_POST);
 
             if((int)$_POST['number'])$this->data['data'] =$this->model->getAllInfo($_POST['number']);
         }
         if ($this->params[0] == 'search')
           {
-            echo json_encode($_POST);
+            $checkbox_work = $_POST['checkbox_work'] ? 'work' : false;
+            if($checkbox_work)$checkbox['work'] = $checkbox_work;
+            $checkbox_connecting = $_POST['checkbox_connecting'] ? 'connecting' : false;
+            if($checkbox_connecting)$checkbox['connecting'] = $checkbox_connecting;
+            $checkbox_disconnected = $_POST['checkbox_disconnected'] ? 'disconnected' : false;
+            if($checkbox_disconnected)$checkbox['disconnected'] = $checkbox_disconnected;
+            if(is_array($checkbox))$string = implode("','", $checkbox);
+            $string = "'".$string."'";
+            $result = $this->model->getAllInfo($_POST['number_ajax'],$string);
+            //var_dump($string);
+            // if($_POST['checkbox_work']){$checkbox_work = $_POST['checkbox_work'] ? 1 : 0;echo $checkbox_work;}
+            // if($_POST['checkbox_connecting']){$checkbox_connecting = $_POST['checkbox_connecting'] ? 1 : 0;echo $checkbox_connecting;}
+            // if($_POST['checkbox_disconnected']){$checkbox_disconnected = $_POST['checkbox_disconnected'] ? 1 : 0;echo $checkbox_disconnected;}
+            echo json_encode($result);
             //var_dump($_POST);
             exit;
           }

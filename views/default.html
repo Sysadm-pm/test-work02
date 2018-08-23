@@ -139,31 +139,68 @@ window.onload = function(){
               $("label#input_error").hide();
             }
       };
+      document.getElementById('input_ajax').onkeyup = function(){
+            foo = this.value;
+            if (foo.match(/[^\d]/g)) {
+                $("label#input_error_ajax").show(); //Show error
+                $("input#input_ajax").focus(); //Focus on field
+                return false;
+            }else{
+              $("label#input_error_ajax").hide();
+            }
+      };
 };
 
 </script>
 <script>
-function ajax_send(){
-        // click on button submit
-        $("#submit").on('click', function(){
-            // send ajax
+
+$(document).ready(function() {
+function a(){
+  $('#txtHint').load('table.html');
+};
+        $("#submit_ajax").click(function(){
             $.ajax({
                 url: '/pages/index/search', // url where to submit the request
                 type : "POST", // type of action POST || GET
                 dataType : 'json', // data type
                 data : $("#form").serialize(), // post data || get data
                 success : function(result) {
-                    // you can see the result from the console
-                    // tab of the developer tools
-                    console.log(result);
+                    if (typeof result[0] !='undefined' ){
+                      $.when( a() ).then( set() );
+                      function set(){
+                        setTimeout(function(){
+                          //document.getElementById("id_contract").innerHTML = result[0].id_contract;
+                          document.getElementById("name_customer").innerHTML = result[0].name_customer;
+                          document.getElementById("company").innerHTML = result[0].company;
+                          document.getElementById("number").innerHTML = result[0].number;
+                          document.getElementById("date_sign").innerHTML = result[0].date_sign;
+                          if (typeof result[0].services !='undefined'){
+                            for (var key in result[0].services) {
+                              if (r !== undefined) {
+                                    r += result[0].services[key].title_service+" => "+result[0].services[key].status+"<br>";
+                              }else{
+                              var   r = result[0].services[key].title_service+" => "+result[0].services[key].status+"<br>";
+                              }
+                              document.getElementById("services").innerHTML = r;
+
+                            }
+                          }else{document.getElementById("services").innerHTML = "Нет доступныж сервисов.";}
+                        }, 100);
+                      }
+                  }else{
+                    document.getElementById("txtHint").innerHTML = "<h3>Нет данных по номеру</h3>";
+                    console.log("<h3>Нет данных по введенному номеру</h3>");
+                }
                 },
                 error: function(xhr, resp, text) {
                     console.log(xhr, resp, text);
+                    //console.log("<h3>Нет данных по номеру</h3>");
+                    document.getElementById("txtHint").innerHTML = "<h3>Вы ввели неверное значение.Введите цифру.</h3>";
                 }
             })
         });
-    };
 
+});
 </script>
 
 <script type="text/javascript">
